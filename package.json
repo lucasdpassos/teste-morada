@@ -19,12 +19,15 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.12.0",
+    "fs": "0.0.1-security",
     "heroku": "^7.47.12",
     "json-easy-filter": "^0.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.1",
     "monk": "^7.3.3",
     "nodemon": "^2.0.7",
+    "pdf-lib": "^1.16.0",
+    "pdfkit": "^0.12.1",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {

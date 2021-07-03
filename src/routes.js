@@ -8,5 +8,7 @@ router.get('/api/ping', MoradaController.ping)
 
 router.post('/api/newcat', MoradaController.kittyAdd)
 
+router.get('/api/pdf', MoradaController.kittyPdf)
+
 
 module.exports = router
