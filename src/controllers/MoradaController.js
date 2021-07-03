@@ -39,14 +39,17 @@ module.exports = {
 
         const data = await Kitten.find({ name: /^Ca/ });
         
-        pdf  
-  .fontSize(13)
-  .fillColor('#6155a4')
-  .text(`Texto formatado ${data[0].name}`, {
-    align: 'center'
-  })
+        pdf.image('../primeiroape.png', 0, 15, {width: 620})
 
-        pdf.pipe(fs.createWriteStream('output.pdf'));
+        pdf.text('Juntamos aqui algumas informações importantes sobre sua aquisição!', 110, 280)
+
+        pdf
+        .fontSize(8)
+        .text('Sabemos o quanto a compra de um imóvel gera animação e muita ansiedade. Para você se preparar para as próximas etapas e poder esperar o tão sonhado dia da mudança, com tranquilidade, vamos antecipar algumas informações:', 110, 300)
+        
+        pdf.image('../seta.png', 110, 15, {width: 20, height: 400})
+
+        pdf.pipe(fs.createWriteStream('output.pdf'));        
         pdf.end();
     }
 }
