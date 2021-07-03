@@ -6,8 +6,9 @@ const mongoose = require('mongoose')
 const Kitten = require('../models/testeModel')
 const PDFKit = require('pdfkit');
 const fs = require('fs');
+require('dotenv').config()
 
-mongoose.connect('mongodb+srv://morada:morada4321@cluster0.ofx0x.mongodb.net/Cluster0?retryWrites=true&w=majority');
+mongoose.connect(process.env.MONGO_URI);
 
 const pdf = new PDFKit();
 
@@ -37,7 +38,13 @@ module.exports = {
       async function run() {
 
         const data = await Kitten.find({ name: /^Ca/ });
-        pdf.text(`Hello Rocketseat PDF ${data[0].name}`);
+        
+        pdf  
+  .fontSize(13)
+  .fillColor('#6155a4')
+  .text(`Texto formatado ${data[0].name}`, {
+    align: 'center'
+  })
 
         pdf.pipe(fs.createWriteStream('output.pdf'));
         pdf.end();
