@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 
 const assetSchema = new mongoose.Schema({
-    id: Number,
+    id: {type:Number, required: true},
     name: String,
     values: [{
-    sinal: Number,
-    div_entrada: Number,
+    sinal: String,
+    div_entrada: String,
     dta_assinatura: Date,
-    vlr_itbi: Number,
-    vlr_registro: Number,
-    div_itbi: Number,
-    div_registro: Number,
+    vlr_itbi: String,
+    vlr_registro: String,
+    div_itbi: String,
+    div_registro: String,
     promo_itbi: Boolean,
     promo_registro: Boolean,
-    renda: Number
+    renda: String
      }]
 
   });

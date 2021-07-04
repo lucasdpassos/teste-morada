@@ -8,7 +8,7 @@ router.get('/api/ping', MoradaController.ping)
 
 router.post('/api/newasset', MoradaController.AssetAdd)
 
-router.get('/api/pdf', MoradaController.AssetPdf)
+router.get('/pdf/valores/:id', MoradaController.AssetPdf)
 
 
 module.exports = router
