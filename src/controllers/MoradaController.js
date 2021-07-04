@@ -13,7 +13,7 @@ const crypto = require('crypto')
 
 mongoose.connect(process.env.MONGO_URI);
 
-const pdf = new PDFKit();
+
 
 
 
@@ -49,6 +49,8 @@ module.exports = {
       run().catch(err => console.log(err));
       async function run() {
 
+        const pdf = new PDFKit();
+        
         const item = req.params
         console.log(item)
         const data = await Assets.find({ _id: item.id });
@@ -273,7 +275,8 @@ module.exports = {
 
         var hash = crypto.randomBytes(20).toString('hex');
 
-        pdf.pipe(fs.createWriteStream(`${hash}.pdf`));        
+        pdf.pipe(fs.createWriteStream(`${hash}.pdf`));     
+        pdf.pipe(res)   
         pdf.end();
     }
 }
