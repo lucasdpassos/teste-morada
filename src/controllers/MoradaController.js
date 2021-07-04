@@ -32,26 +32,18 @@ module.exports = {
         const newAsset = req.body
         console.log(newAsset)
 
-        const newData = new Assets({ 
-          id: 3,
-          name: 'Anéis de Saturno',
-          values: [{
-          sinal: "65.801",
-          div_entrada: "2.555",
-          dta_assinatura: '2014-01-01',
-          vlr_itbi: "17.020",
-          vlr_registro: "99.999",
-          div_itbi: "1210",
-          div_registro: "186",
-          promo_itbi: true,
-          promo_registro: false,
-          renda: "12.000"
-        }]
-      });
+        const newData = new Assets(newAsset)
+
         newData.save(function (err, newData) {
             if (err) return console.error(err);            
           });
-          res.json(newAsset)
+          res.json(newData)
+    },
+    AllAssets: (req, res) => {
+      Assets.find(function (err, assets) {
+        if (err) return console.error(err);
+        res.json(assets);
+      })
     },
     AssetPdf: (req, res) => {
       run().catch(err => console.log(err));
@@ -59,11 +51,11 @@ module.exports = {
 
         const item = req.params
         console.log(item)
-        const data = await Assets.find({ id: item.id });
+        const data = await Assets.find({ _id: item.id });
         console.log(data)
         
         
-        pdf.image(path.join(__dirname, `./morada.jpeg`), 0, 15, {width: 600})
+        pdf.image(path.join(__dirname, `../assets/morada.jpeg`), 0, 15, {width: 600})
 
         pdf
         .fillColor('azure')
@@ -80,7 +72,7 @@ module.exports = {
         .fontSize(8)
         .text('Sabemos o quanto a compra de um imóvel gera animação e muita ansiedade. Para você se preparar para as próximas etapas e poder esperar o tão sonhado dia da mudança, com tranquilidade, vamos antecipar algumas informações:', 110, 300)
         
-        pdf.image('../seta.png', 110, 335, {width: 20, height: 400})
+        pdf.image(path.join(__dirname, `../assets/seta.png`), 110, 335, {width: 20, height: 400})
 
         pdf.text('Assinatura do contrato', 30, 350)
         pdf
@@ -110,13 +102,13 @@ module.exports = {
         pdf
         .fillColor('#545ca4')
         .fontSize(10)
-        .text(`R$ ${data[0].values[0].div_entrada}`, 290, 390)
+        .text(`R$ ${data[0].values[0].div_entrada * 59}`, 290, 390)
 
 
         pdf
         .fillColor('black')
         .fontSize(10)
-        .text(`60x de R$ ${data[0].values[0].div_entrada.toFixed(2)}`, 390, 390)
+        .text(`60x de R$ ${data[0].values[0].div_entrada}`, 390, 390)
         
         pdf.moveTo(165, 410)
         .lineTo(340, 410)    
@@ -159,6 +151,9 @@ module.exports = {
         .fillColor('black')
         .fontSize(9)
         .text(`ITBI`, 140, 480)
+
+
+        // Lucas: A condição abaixo vai determinar alguns desings do PDF baseados na condição booleana da promo_itbi
 
         if(data[0].values[0].promo_itbi == true) {
           pdf
@@ -216,7 +211,7 @@ module.exports = {
         .fontSize(10)
         .text(`R$ 0.000`, 290, 580)
 
-        pdf.image(path.join(__dirname, `./obrasUp.png`), 355, 565, {width: 30, height: 30})
+        pdf.image(path.join(__dirname, `../assets/obrasUp.png`), 355, 565, {width: 30, height: 30})
 
         pdf
         .fillColor('#545ca4')

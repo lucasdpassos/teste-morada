@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
+
+/* Lucas: Preferi montar os valores do desafio em um array "valores" dentro do empreendimento, e de fora ficam o nome e o _id, dessa forma fica mais dinâmico, o nome 
+do empreendimento fica no topo do PDF */
+
 const assetSchema = new mongoose.Schema({
-    id: {type:Number, required: true},
-    name: String,
+   
+    name: {type: String, required: true},
     values: [{
     sinal: String,
     div_entrada: String,
